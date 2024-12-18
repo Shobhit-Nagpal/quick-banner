@@ -4,9 +4,10 @@ import React, { useEffect, useRef } from "react";
 
 type CanvasProps = {
   bgColor: string;
+  text: string;
 };
 
-export function Canvas({ bgColor = "#000000" }: CanvasProps) {
+export function Canvas({ bgColor, text }: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -26,6 +27,9 @@ export function Canvas({ bgColor = "#000000" }: CanvasProps) {
       const render = () => {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+        
+        context.fillStyle = "#000000"
+        context.fillText(text, canvas.width / 3, canvas.height / 2)
         animationFrameId = window.requestAnimationFrame(render);
       };
 
@@ -35,7 +39,7 @@ export function Canvas({ bgColor = "#000000" }: CanvasProps) {
         window.cancelAnimationFrame(animationFrameId);
       };
     }
-  }, [bgColor]);
+  }, [bgColor, text]);
 
   return (
     <canvas ref={canvasRef} className="w-full h-full border border-green-500">
