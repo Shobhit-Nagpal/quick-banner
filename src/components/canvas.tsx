@@ -2,14 +2,11 @@
 
 import React, { useEffect, useRef } from "react";
 
-type CanvasOpts = {};
-
 type CanvasProps = {
-  opts: CanvasOpts;
   bgColor: string;
 };
 
-export function Canvas({ opts, bgColor = "#000000" }: CanvasProps) {
+export function Canvas({ bgColor = "#000000" }: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
