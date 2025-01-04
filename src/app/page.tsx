@@ -1,14 +1,15 @@
 "use client";
 
 import { Canvas } from "@/components/canvas";
+import { canvasOpts } from "@/utils/canvas";
 import { useState } from "react";
 
 export default function Home() {
-  const [bgColor, setBgColor] = useState<string>("#FFFFFF");
-  const [text, setText] = useState<string>("");
+  const [bgColor, setBgColor] = useState<string>("#002679");
+  const [text, setText] = useState<string>("Memer");
 
   return (
-    <div className="w-full h-full bg-white flex flex-col items-center">
+    <div className="w-full h-full bg-gray-500 flex flex-col items-center">
       <label className="text-black">BG Color</label>
       <input
         value={bgColor}
@@ -22,8 +23,8 @@ export default function Home() {
         className="border border-black"
         onChange={(e) => setText(e.target.value)}
       />
-      <div className="w-full max-w-7xl">
-        <Canvas bgColor={bgColor} text={text} />
+      <div className="w-full max-w-7xl p-4">
+        <Canvas bgColor={bgColor} text={text} opts={canvasOpts} />
       </div>
     </div>
   );

@@ -1,45 +1,72 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useCanvas } from "@/hooks/use-canvas";
+import { CanvasOpts } from "@/types/canvas";
+import React, { useCallback } from "react";
 
 type CanvasProps = {
   bgColor: string;
   text: string;
+  opts: CanvasOpts;
 };
 
-export function Canvas({ bgColor, text }: CanvasProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+function resizeCanvas(canvas: HTMLCanvasElement) {
+  const { width, height } = canvas.getBoundingClientRect();
 
-  useEffect(() => {
-    let animationFrameId = 0;
+  if (canvas.width !== width || canvas.height !== height) {
+    const { devicePixelRatio: ratio = 1 } = window;
+    const context = canvas.getContext("2d");
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    context?.scale(ratio, ratio);
+    return true;
+  }
 
-    if (canvasRef.current) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
+  return false;
+}
 
-      if (!context) {
-        throw new Error("Context is null");
-      }
+const predraw = (context: RenderingContext, canvas: HTMLCanvasElement) => {
+  if (context instanceof CanvasRenderingContext2D) {
+    context.save();
+    resizeCanvas(canvas);
+    const { width, height } = context.canvas;
+    context.clearRect(0, 0, width, height);
+  }
+};
 
-      context.fillStyle = bgColor;
-      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+export function Canvas({ bgColor, text, opts }: CanvasProps) {
+  const draw = useCallback(
+    (context: RenderingContext) => {
+      const ogImg = new Image();
+      ogImg.src = "/opengraph-image.png";
 
-      const render = () => {
+      if (context instanceof CanvasRenderingContext2D) {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-        
-        context.fillStyle = "#000000"
-        context.fillText(text, canvas.width / 3, canvas.height / 2)
-        animationFrameId = window.requestAnimationFrame(render);
-      };
 
-      render();
+        context.drawImage(
+          ogImg,
+          context.canvas.width / 6,
+          context.canvas.height / 2.3,
+          context.canvas.width / 2,
+          context.canvas.height / 2,
+        );
 
-      return () => {
-        window.cancelAnimationFrame(animationFrameId);
-      };
-    }
-  }, [bgColor, text]);
+        // Render text at last --> top most render on canvas
+        context.fillStyle = "#FFFFFF";
+        context.fillText(
+          text,
+          context.canvas.width / 3,
+          context.canvas.height / 6,
+        );
+      }
+    },
+    [bgColor, text],
+  );
+
+  opts.predraw = predraw;
+
+  const { canvasRef } = useCanvas({ draw, opts });
 
   return (
     <canvas ref={canvasRef} className="w-full h-full border border-green-500">
