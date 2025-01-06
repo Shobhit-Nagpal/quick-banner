@@ -1,12 +1,11 @@
 "use client";
 
+import { useBanner } from "@/hooks/use-banner";
 import { useCanvas } from "@/hooks/use-canvas";
 import { CanvasOpts } from "@/types/canvas";
 import React, { useCallback } from "react";
 
 type CanvasProps = {
-  bgColor: string;
-  text: string;
   opts: CanvasOpts;
 };
 
@@ -34,7 +33,8 @@ const predraw = (context: RenderingContext, canvas: HTMLCanvasElement) => {
   }
 };
 
-export function Canvas({ bgColor, text, opts }: CanvasProps) {
+export function Canvas({ opts }: CanvasProps) {
+  const { bgColor, title } = useBanner();
   const draw = useCallback(
     (context: RenderingContext) => {
       const ogImg = new Image();
@@ -54,14 +54,15 @@ export function Canvas({ bgColor, text, opts }: CanvasProps) {
 
         // Render text at last --> top most render on canvas
         context.fillStyle = "#FFFFFF";
+        const textX = context.canvas.width / 2 - title.length + title.length / 2 
         context.fillText(
-          text,
-          context.canvas.width / 3,
+          title,
+          textX,
           context.canvas.height / 6,
         );
       }
     },
-    [bgColor, text],
+    [bgColor, title],
   );
 
   opts.predraw = predraw;
