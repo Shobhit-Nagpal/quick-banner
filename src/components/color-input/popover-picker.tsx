@@ -18,7 +18,7 @@ export function PopoverPicker({ color, onChange }: PopoverPickerProps) {
       <PopoverTrigger>
         <div
           style={{ backgroundColor: color }}
-          className="w-10 h-10 rounded-full border-2 border-white"
+          className="w-8 h-8 rounded-full border-2 border-white"
         />
       </PopoverTrigger>
       <PopoverContent className="p-2 w-full">
