@@ -1,4 +1,4 @@
-import { CanvasOpts } from "@/types/canvas";
+import { CanvasOpts, TextOpts } from "@/types/canvas";
 
 export const canvasOpts: CanvasOpts = {
   context: "2d",
@@ -43,33 +43,21 @@ export const drawText = (
   text: string,
   posX: number,
   posY: number,
-  size: number,
-  color?: string,
+  opts?: TextOpts,
 ) => {
   if (context instanceof CanvasRenderingContext2D) {
     context.save();
 
-    if (color) {
-      context.fillStyle = color;
-    } else {
-      context.fillStyle = "#FFFFFF";
-    }
+    context.fillStyle = opts?.color ?? "#FFFFFF";
 
-    context.font = `${size}px sans-serif`;
+    const fontSize = opts?.size ?? 16;
 
-    context.textAlign = "center";
+    context.font = `${fontSize}px sans-serif`;
+
+    context.textAlign = opts?.align ?? "center";
 
     context.fillText(text, posX, posY);
 
     context.restore();
-
-    //Test
-    // draw some guidelines just for testing
-    context.beginPath();
-    context.moveTo(posX, 0);
-    context.lineTo(posX, context.canvas.height);
-    context.moveTo(0, posY);
-    context.lineTo(context.canvas.width, posY);
-    context.stroke();
   }
 };

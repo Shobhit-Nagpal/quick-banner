@@ -31,13 +31,13 @@ export function Canvas({ opts }: CanvasProps) {
 
         // Title
         const titleX = context.canvas.width / 2;
-        const titleY = context.canvas.height / 2;
-        drawText(context, title, titleX, titleY, 10);
+        const titleY = 56;
+        drawText(context, title, titleX, titleY, { size: 32 });
 
-        //        // Description
-        //        const desX = context.canvas.width / 2;
-        //        const desY = context.canvas.height / 3;
-        //        drawText(context, description, desX, desY, 24);
+        // Description
+        const desX = context.canvas.width / 2;
+        const desY = context.canvas.height / 1.5;
+        drawText(context, description, desX, desY);
       }
     },
     [bgColor, title, description],
