@@ -32,7 +32,7 @@ export function Canvas({ opts }: CanvasProps) {
         // Title
         const titleX = context.canvas.width / 2;
         const titleY = context.canvas.height / 2;
-        drawText(context, title, titleX, titleY, 56);
+        drawText(context, title, titleX, titleY, 10);
 
         //        // Description
         //        const desX = context.canvas.width / 2;
@@ -48,7 +48,7 @@ export function Canvas({ opts }: CanvasProps) {
   const { canvasRef } = useCanvas({ draw, opts });
 
   return (
-    <canvas ref={canvasRef} className="w-full h-full rounded-sm">
+    <canvas ref={canvasRef} className="rounded-sm">
       Quick Banner Canvas
     </canvas>
   );

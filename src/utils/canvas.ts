@@ -32,7 +32,7 @@ export const predraw = (
 ) => {
   if (context instanceof CanvasRenderingContext2D) {
     context.save();
-//    resizeCanvas(canvas);
+    resizeCanvas(canvas);
     const { width, height } = context.canvas;
     context.clearRect(0, 0, width, height);
   }
@@ -57,10 +57,9 @@ export const drawText = (
 
     context.font = `${size}px sans-serif`;
 
-    const textWidth = context.measureText(text).width;
     context.textAlign = "center";
 
-    context.fillText(text, posX - textWidth / 2, posY);
+    context.fillText(text, posX, posY);
 
     context.restore();
 
