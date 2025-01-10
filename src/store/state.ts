@@ -1,5 +1,9 @@
 import { create } from "zustand";
 
+/** 
+ Banner state and store
+ */
+
 type BannerState = {
   title: string;
   description: string;

@@ -8,19 +8,30 @@ import { Textarea } from "../ui/textarea";
 
 export function TextSettings() {
   const { title, description, setTitle, setDescription } = useBanner();
+
   return (
-    <section>
-      <div>
-        <Label>Title</Label>
-        <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+    <section className="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto space-y-6">
+      <h2 className="text-xl font-bold text-gray-800">Text</h2>
+      <div className="flex flex-col space-y-2">
+        <Label className="text-sm font-semibold text-gray-700">Title</Label>
+        <Input
+          className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter the title"
+        />
       </div>
 
-      <div>
-        <Label>Description</Label>
+      <div className="flex flex-col space-y-2">
+        <Label className="text-sm font-semibold text-gray-700">
+          Description
+        </Label>
         <Textarea
+          className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          rows={3}
+          rows={4}
+          placeholder="Write the description here"
         />
       </div>
     </section>

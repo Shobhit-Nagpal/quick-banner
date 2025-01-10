@@ -20,19 +20,11 @@ export function useCanvas({ draw, opts = {} }: CanvasHookProps) {
         throw new Error("Context is null");
       }
 
-      const scale = window.devicePixelRatio;
-      canvas.width = Math.floor(300 * scale);
-      canvas.height = Math.floor(150 * scale);
-
       if (context instanceof CanvasRenderingContext2D) {
         if (opts.predraw) {
           opts.predraw(context, canvas);
         }
-        context.font = "50px sans-serif"
       }
-
-      const testImg = new Image();
-      testImg.src = canvas.toDataURL("image/png");
 
       const render = () => {
         draw(context);

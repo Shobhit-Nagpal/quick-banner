@@ -48,7 +48,7 @@ export function Canvas({ opts }: CanvasProps) {
   const { canvasRef } = useCanvas({ draw, opts });
 
   return (
-    <canvas ref={canvasRef} className="rounded-sm">
+    <canvas ref={canvasRef} className="rounded-sm" id="qb-canvas">
       Quick Banner Canvas
     </canvas>
   );
