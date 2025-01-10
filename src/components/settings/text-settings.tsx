@@ -10,7 +10,7 @@ export function TextSettings() {
   const { title, description, setTitle, setDescription } = useBanner();
 
   return (
-    <section className="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto space-y-6">
+    <section className="bg-white p-6 rounded-lg max-w-3xl mx-auto space-y-6">
       <h2 className="text-xl font-bold text-gray-800">Text</h2>
       <div className="flex flex-col space-y-2">
         <Label className="text-sm font-semibold text-gray-700">Title</Label>

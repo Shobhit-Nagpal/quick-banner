@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 interface CanvasHookProps {
   draw: (ctx: RenderingContext) => void;
-  opts: CanvasOpts;
+  opts?: CanvasOpts;
 }
 
 export function useCanvas({ draw, opts = {} }: CanvasHookProps) {

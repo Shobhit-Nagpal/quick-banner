@@ -1,14 +1,14 @@
 import React from "react";
 import { ColorSettings } from "./color-settings";
 import { TextSettings } from "./text-settings";
-import { ExportButton } from "./export-button";
+import { ExportSettings } from "./export-settings";
 
 export function Settings() {
   return (
-    <>
+    <div className="w-full flex flex-col items-center justify-center space-y-4">
       <TextSettings />
       <ColorSettings />
-      <ExportButton />
-    </>
+      <ExportSettings />
+    </div>
   );
 }

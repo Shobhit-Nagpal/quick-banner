@@ -4,8 +4,15 @@ export const canvasOpts: CanvasOpts = {
   context: "2d",
 };
 
-export const convertCanvasToImage = (canvas: HTMLCanvasElement) => {
-  return canvas.toDataURL("image/png");
+export const downloadBanner = (canvas: HTMLCanvasElement, title: string) => {
+  const imageUrl = canvas.toDataURL("image/png");
+
+  const link = document.createElement("a");
+  link.href = imageUrl;
+  const fileName = title.toLowerCase().split(" ").join("-");
+
+  link.download = `${fileName}-og.png`;
+  link.click();
 };
 
 export function resizeCanvas(canvas: HTMLCanvasElement) {

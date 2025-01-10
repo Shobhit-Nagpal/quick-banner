@@ -16,7 +16,7 @@ export function ColorSettings() {
   const debouncedBgColor = debounce(handleBgColorChange, 200);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md space-y-4">
+    <div className="w-full bg-white p-6 rounded-lg space-y-4">
       <h2 className="text-xl font-bold text-gray-800">Color</h2>
       <div className="flex flex-col space-y-2">
         <Label className="text-sm font-semibold text-gray-700">
@@ -24,6 +24,9 @@ export function ColorSettings() {
         </Label>
         <div className="flex items-center space-x-4">
           <PopoverPicker color={bgColor} onChange={debouncedBgColor} />
+          <div className="rounded-full px-4 py-1 bg-gray-200 font-bold">
+            <p>{bgColor}</p>
+          </div>
         </div>
       </div>
     </div>

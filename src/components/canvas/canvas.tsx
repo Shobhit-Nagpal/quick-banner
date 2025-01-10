@@ -21,13 +21,15 @@ export function Canvas({ opts }: CanvasProps) {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-        //        context.drawImage(
-        //          ogImg,
-        //          context.canvas.width / 6,
-        //          context.canvas.height / 2.3,
-        //          context.canvas.width / 2,
-        //          context.canvas.height / 2,
-        //        );
+        const wrh = ogImg.width / ogImg.height;
+
+        context.drawImage(
+          ogImg,
+          context.canvas.width / 4,
+          context.canvas.height / 2,
+          context.canvas.width / 2,
+          context.canvas.height / 2,
+        );
 
         // Title
         const titleX = context.canvas.width / 2;
