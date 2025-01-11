@@ -1,4 +1,4 @@
-import { CanvasOpts, TextOpts } from "@/types/canvas";
+import { CanvasOpts, ImageOpts, TextOpts } from "@/types/canvas";
 
 export const canvasOpts: CanvasOpts = {
   context: "2d",
@@ -58,13 +58,58 @@ export const drawText = (
     context.fillStyle = opts?.color ?? "#FFFFFF";
 
     const fontSize = opts?.size ?? 16;
+    context.font = `${fontSize}px SFProDisplay`;
 
-    context.font = `${fontSize}px sans-serif`;
+    // Bold opts
+    context.font = opts?.bold ? `bold ${context.font}` : context.font;
 
-    context.textAlign = opts?.align ?? "center";
+    // Center text horizontally and vertically
+    context.textAlign = opts?.textAlign ?? "center";
+    context.textBaseline = opts?.textBaseline ?? "middle";
 
     context.fillText(text, posX, posY);
 
     context.restore();
   }
 };
+
+export const drawImage = (
+  context: RenderingContext,
+  image: HTMLImageElement,
+  posX: number,
+  posY: number,
+  opts?: ImageOpts,
+) => {
+  if (context instanceof CanvasRenderingContext2D) {
+    context.save();
+
+    const imageWidth = opts?.width ?? context.canvas.width / 2;
+    const imageHeight = opts?.width ?? context.canvas.height / 2;
+
+    context.drawImage(image, posX, posY, imageWidth, imageHeight);
+
+    context.restore();
+  }
+};
+
+/** 
+  Utils for testing 
+ */
+
+export function _drawGrid(context: RenderingContext) {
+  if (context instanceof CanvasRenderingContext2D) {
+    context.lineWidth = 2;
+
+    //Draw vertical line
+    context.beginPath();
+    context.moveTo(context.canvas.width / 2, 0);
+    context.lineTo(context.canvas.width / 2, context.canvas.height);
+    context.stroke();
+
+    //Draw horizontal line
+    context.beginPath();
+    context.moveTo(0, context.canvas.height / 2);
+    context.lineTo(context.canvas.width, context.canvas.height / 2);
+    context.stroke();
+  }
+}

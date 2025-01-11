@@ -6,6 +6,18 @@ export type CanvasOpts = {
 export type TextOpts = {
   size?: number;
   bold?: boolean;
-  align?: "end" | "left" | "right" | "start" | "center";
+  textAlign?: "end" | "left" | "right" | "start" | "center";
+  textBaseline?:
+    | "middle"
+    | "top"
+    | "bottom"
+    | "hanging"
+    | "alphabetic"
+    | "ideographic";
   color?: string;
+};
+
+export type ImageOpts = {
+  width?: number;
+  height?: number;
 };

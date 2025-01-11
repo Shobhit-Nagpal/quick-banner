@@ -3,7 +3,7 @@
 import { useBanner } from "@/hooks/use-banner";
 import { useCanvas } from "@/hooks/use-canvas";
 import { CanvasOpts } from "@/types/canvas";
-import { drawText, predraw } from "@/utils/canvas";
+import { _drawGrid, drawImage, drawText, predraw } from "@/utils/canvas";
 import React, { useCallback } from "react";
 
 type CanvasProps = {
@@ -11,38 +11,42 @@ type CanvasProps = {
 };
 
 export function Canvas({ opts }: CanvasProps) {
-  const { bgColor, title, description } = useBanner();
+  const { bgColor, title, description, link, img } = useBanner();
 
   const draw = useCallback(
     (context: RenderingContext) => {
-      const ogImg = new Image();
-      ogImg.src = "/opengraph-image.png";
+      // Create image
+      const image = new Image();
+      image.src = img;
+
       if (context instanceof CanvasRenderingContext2D) {
         context.fillStyle = bgColor;
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-        const wrh = ogImg.width / ogImg.height;
-
-        context.drawImage(
-          ogImg,
+        drawImage(
+          context,
+          image,
           context.canvas.width / 4,
-          context.canvas.height / 2,
-          context.canvas.width / 2,
-          context.canvas.height / 2,
+          context.canvas.height / 1.7,
         );
 
         // Title
         const titleX = context.canvas.width / 2;
-        const titleY = 56;
-        drawText(context, title, titleX, titleY, { size: 32 });
+        const titleY = context.canvas.height / 6;
+        drawText(context, title, titleX, titleY, { size: 48, bold: true });
 
         // Description
         const desX = context.canvas.width / 2;
-        const desY = context.canvas.height / 1.5;
-        drawText(context, description, desX, desY);
+        const desY = context.canvas.height / 3.5;
+        drawText(context, description, desX, desY, { size: 28 });
+
+        // Link
+        const linkX = context.canvas.width / 2;
+        const linkY = context.canvas.height / 2.25;
+        drawText(context, link, linkX, linkY, { size: 20 });
       }
     },
-    [bgColor, title, description],
+    [bgColor, title, description, link],
   );
 
   opts.predraw = predraw;
@@ -50,7 +54,13 @@ export function Canvas({ opts }: CanvasProps) {
   const { canvasRef } = useCanvas({ draw, opts });
 
   return (
-    <canvas ref={canvasRef} className="rounded-sm" id="qb-canvas">
+    <canvas
+      ref={canvasRef}
+      width={800}
+      height={420}
+      className="rounded-sm"
+      id="qb-canvas"
+    >
       Quick Banner Canvas
     </canvas>
   );

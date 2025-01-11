@@ -25,7 +25,7 @@ type BannerAction = {
 const useBannerStore = create<BannerState & BannerAction>()((set) => ({
   title: "Quick Banner",
   description: "Make beautiful banners on the fly",
-  link: "https://quick-banner.vercel.app",
+  link: "quick-banner.shobhitnagpal.com",
   img: "/opengraph-image.png",
   bgColor: "#002679",
   icon: "",
