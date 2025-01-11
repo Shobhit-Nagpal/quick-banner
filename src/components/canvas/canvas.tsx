@@ -46,7 +46,7 @@ export function Canvas({ opts }: CanvasProps) {
         drawText(context, link, linkX, linkY, { size: 20 });
       }
     },
-    [bgColor, title, description, link],
+    [bgColor, title, description, link, img],
   );
 
   opts.predraw = predraw;
