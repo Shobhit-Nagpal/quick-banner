@@ -6,7 +6,7 @@ import { ImageSettings } from "./image-settings";
 
 export function Settings() {
   return (
-    <div className="w-full flex flex-col items-center justify-center space-y-4">
+    <div className="w-full flex flex-col items-center justify-center space-y-4 mt-14">
       <TextSettings />
       <ColorSettings />
       <ImageSettings />

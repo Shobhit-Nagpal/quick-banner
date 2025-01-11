@@ -9,7 +9,7 @@ import { Settings } from "../settings/settings";
 
 export function AppSidebar() {
   return (
-    <Sidebar className="mt-14">
+    <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
